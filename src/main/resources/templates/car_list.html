@@ -9,8 +9,8 @@
 <a th:href="@{'/cars/create'}">CREATE A NEW CAR </a>
 
 <ul>
-    <li th:each="car, iter: ${cars}">
-        <a th:text="${car.licensePlate}" th:href="'/cars/detail/' + ${iter.index}"></a>
+    <li th:each="car: ${cars}">
+        <a th:text="${car.licensePlate}" th:href="'/cars/detail/' + ${car.id}"></a>
     </li>
 </ul>
 
