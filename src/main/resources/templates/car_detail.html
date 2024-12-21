@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail of Car</title>
+</head>
+<body>
+
+<h1> Detail of car</h1>
+<a th:href="@{'/cars/delete/' + ${id}}"> DELETE CAR </a>
+<a th:href="@{'/cars/edit/' + ${id}}"> EDIT CAR </a>
+
+<br>
+<br>
+
+<b> License plate: </b> : <span th:text="${car.licensePlate}"></span>
+<br>
+<b> Color: </b> : <span th:text="${car.color}"></span>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${edit ? 'Editing an existing car' : 'Creating a new car'}"></title>
+</head>
+<body>
+
+<h1 th:text="${edit ? 'Editing an existing car' : 'Creating a new car'}"></h1>
+
+<form method="post" th:action="@{'/cars/save'}" th:object="${car}">
+    <input type="hidden" th:field="*{id}">
+    License plate: <input type="text" th:field="*{licensePlate}">
+    <span th:errors="*{licensePlate}"></span>
+    <br>
+    Color: <input type="text" th:field="*{color}">
+    <br>
+    <span th:errors="*{color}"></span>
+    <br>
+    Number of seats: <input type="text" th:field="*{numberOfSeats}">
+    <br>
+    <span th:errors="*{numberOfSeats}"></span>
+    <br>
+
+    <input type="submit" value="Save">
+</form>
+
+
+</body>
+</html>
