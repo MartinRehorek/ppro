@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Case Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            color: #2c3e50;
+            font-size: 2em;
+        }
+
+        .create-btn {
+            background: #2a5298;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .create-btn:hover {
+            background: #1e3c72;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .case-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .case-title {
+            color: #2c3e50;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .case-info {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .back-to-dashboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #2a5298;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .back-to-dashboard:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-to-dashboard">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
+
+        <div class="header">
+            <h1 class="page-title">Case Management</h1>
+            <a href="/cases/create" class="create-btn">
+                <i class="fas fa-plus"></i>
+                Create New Case
+            </a>
+        </div>
+
+        <div class="cases-grid" th:if="${!cases.empty}">
+            <div class="case-card" th:each="case : ${cases}">
+                <a th:href="@{'/cases/detail/' + ${case.id}}" class="case-title" th:text="${case.title}">Case Title</a>
+                <div class="case-info">
+                    <div class="case-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-user-tie"></i>
+                            <span th:text="${case.lawyer?.license ?: 'Unassigned'}">Lawyer</span>
+                        </div>
+                    </div>
+                    <p class="case-description" th:text="${case.description ?: 'No description available'}">Description</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-state" th:if="${cases.empty}">
+            <i class="fas fa-folder-open" style="font-size: 3em; color: #ddd; margin-bottom: 20px;"></i>
+            <h2>No Cases Found</h2>
+            <p>Get started by creating your first case</p>
+        </div>
+    </div>
+</body>
+</html>

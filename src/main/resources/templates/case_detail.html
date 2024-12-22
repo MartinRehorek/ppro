@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Case Detail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            font-weight: 500;
+            color: #34495e;
+            margin-right: 10px;
+        }
+
+        .value {
+            color: #2c3e50;
+        }
+
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .edit-btn {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .back-btn {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .documents-section {
+            margin-top: 30px;
+        }
+        .document-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .document-title {
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .document-description {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .add-document-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${case.title}">Case Title</h1>
+        
+        <div class="case-info">
+            <p><strong>Lawyer:</strong> <span th:text="${case.lawyer?.license ?: 'Unassigned'}">Lawyer</span></p>
+            <p><strong>Description:</strong> <span th:text="${case.description ?: 'No description available'}">Description</span></p>
+        </div>
+
+        <div class="documents-section">
+            <h2>Documents</h2>
+            <a th:href="@{'/cases/' + ${case.id} + '/documents/add'}" class="add-document-btn">
+                <i class="fas fa-plus"></i> Add Document
+            </a>
+
+            <div th:if="${!case.documents.empty}">
+                <div class="document-card" th:each="doc : ${case.documents}">
+                    <h3 class="document-title" th:text="${doc.title}">Document Title</h3>
+                    <p class="document-description" th:text="${doc.description}">Document description</p>
+                    <div class="document-actions">
+                        <a th:href="@{'/caseDocuments/detail/' + ${doc.id}}" class="btn">View</a>
+                        <a th:href="@{'/caseDocuments/delete/' + ${doc.id}}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div th:if="${case.documents.empty}" class="empty-state">
+                <p>No documents attached to this case yet</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

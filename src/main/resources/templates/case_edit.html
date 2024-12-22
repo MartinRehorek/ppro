@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${edit ? 'Edit Case' : 'Create New Case'}">Case Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            background: #2a5298;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #1e3c72;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #2a5298;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${edit ? 'Edit Case' : 'Create New Case'}">Case Management</h1>
+
+        <form method="post" th:action="@{'/cases/save'}" th:object="${case}" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}">
+            
+            <div class="form-group">
+                <label for="title">Case Title:</label>
+                <input type="text" th:field="*{title}" id="title" placeholder="Enter case title">
+                <span class="error" th:errors="*{title}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="document">Add Document:</label>
+                <input type="file" name="document" id="document" class="form-control">
+                <input type="text" name="documentTitle" placeholder="Document Title" class="form-control">
+                <textarea name="documentDescription" placeholder="Document Description" class="form-control"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea th:field="*{description}" id="description" placeholder="Enter case description" class="form-control"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">Save Case</button>
+                <a th:href="@{/cases/}" class="cancel-btn">Cancel</a>
+            </div>
+        </form>
+
+        <a href="/cases" class="back-link">Back to Cases List</a>
+    </div>
+</body>
+</html>
