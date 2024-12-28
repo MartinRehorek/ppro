@@ -1,7 +1,6 @@
 package cz.uhk.kppro.service;
 
 import cz.uhk.kppro.model.Lawyer;
-import cz.uhk.kppro.repository.CaseRepository;
 import cz.uhk.kppro.repository.LawyerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

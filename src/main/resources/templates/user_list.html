@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lawyer Management</title>
+    <title>User Management</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -51,13 +51,13 @@
             background: #1e3c72;
         }
 
-        .lawyers-grid {
+        .users-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
 
-        .lawyer-card {
+        .user-card {
             background: white;
             border-radius: 10px;
             padding: 20px;
@@ -65,12 +65,12 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .lawyer-card:hover {
+        .user-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .lawyer-title {
+        .user-title {
             color: #2c3e50;
             font-size: 1.2em;
             margin-bottom: 10px;
@@ -78,12 +78,12 @@
             display: block;
         }
 
-        .lawyer-info {
+        .user-info {
             color: #666;
             font-size: 0.9em;
         }
 
-        .lawyer-meta {
+        .user-meta {
             display: flex;
             align-items: center;
             gap: 15px;
@@ -127,33 +127,26 @@
         </a>
 
         <div class="header">
-            <h1 class="page-title">Lawyer Management</h1>
-            <a href="/lawyers/create" class="create-btn">
+            <h1 class="page-title">User Management</h1>
+            <a href="/users/create" class="create-btn">
                 <i class="fas fa-plus"></i>
-                Create New Lawyer
+                Create New User
             </a>
         </div>
 
-        <div class="lawyers-grid" th:if="${!lawyers.empty}">
-            <div class="lawyer-card" th:each="lawyer : ${lawyers}">
-                <a th:href="@{'/lawyers/detail/' + ${lawyer.id}}" class="lawyer-title" th:text="${lawyer.name}">Lawyer Name</a>
-                <div class="lawyer-info">
-                    <div class="lawyer-meta">
-                        <div class="meta-item">
-                            <i class="fas fa-user-tie"></i>
-                            <span th:text="${lawyer.specialization ?: 'No specialization'}">Specialization</span>
-                        </div>
-                    </div>
-                    <p class="lawyer-description" th:text="${lawyer.user?.email ?: 'No email available'}">Email</p>
+        <div class="users-grid" th:if="${!users.empty}">
+            <div class="user-card" th:each="user : ${users}">
+                <a th:href="@{'/users/detail/' + ${user.id}}" class="user-title" th:text="${user.email}">User Name</a>
+                <div class="user-info">
+                    <p th:text="${user.email}">Email</p>
                 </div>
             </div>
         </div>
 
-        <div class="empty-state" th:if="${lawyers.empty}">
+        <div class="empty-state" th:if="${users.empty}">
             <i class="fas fa-folder-open" style="font-size: 3em; color: #ddd; margin-bottom: 20px;"></i>
-            <h2>No Lawyers Found</h2>
-            <p>Get started by creating your first lawyer</p>
+            <h2>No Users Found</h2>
+            <p>Get started by creating your first user</p>
         </div>
     </div>
-</body>
 </html>

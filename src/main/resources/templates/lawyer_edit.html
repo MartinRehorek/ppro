@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${edit ? 'Edit User' : 'Create New User'}">User Management</title>
+    <title th:text="${edit ? 'Edit Lawyer' : 'Create New Lawyer'}">Lawyer Management</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
@@ -43,12 +43,17 @@
             font-weight: 500;
         }
 
-        input[type="text"], input[type="email"], input[type="password"], select, textarea {
+        input[type="text"], select, textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
         }
 
         .error {
@@ -88,31 +93,48 @@
 </head>
 <body>
     <div class="container">
-        <h1 th:text="${edit ? 'Edit User' : 'Create New User'}">User Management</h1>
+        <h1 th:text="${edit ? 'Edit Lawyer' : 'Create New Lawyer'}">Lawyer Management</h1>
 
-        <form method="post" th:action="@{'/users/save'}" th:object="${user}">
+        <form method="post" th:action="@{'/lawyers/save'}" th:object="${lawyerDTO}">
             <input type="hidden" th:field="*{id}">
-            <input type="hidden" th:field="*{role}">
             
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" th:field="*{email}" id="email" placeholder="Enter email" required>
-                <span class="error" th:errors="*{email}"></span>
+                <label for="name">Name:</label>
+                <input type="text" th:field="*{name}" id="name" placeholder="Enter lawyer name">
+                <span class="error" th:errors="*{name}"></span>
             </div>
 
             <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" th:field="*{email}" id="email" placeholder="Enter email">
+                <span class="error" th:errors="*{email}"></span>
+            </div>
+
+            <div class="form-group" th:if="${!edit}">
                 <label for="password">Password:</label>
                 <input type="password" th:field="*{password}" id="password" placeholder="Enter password">
                 <span class="error" th:errors="*{password}"></span>
             </div>
 
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" th:field="*{phone}" id="phone" placeholder="Enter phone">
+                <span class="error" th:errors="*{phone}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="specialization">Specialization:</label>
+                <input type="text" th:field="*{specialization}" id="specialization" placeholder="Enter specialization">
+                <span class="error" th:errors="*{specialization}"></span>
+            </div>
+
             <div class="form-actions">
-                <button type="submit" class="submit-btn">Save User</button>
-                <a th:href="@{/users/}" class="cancel-btn">Cancel</a>
+                <button type="submit" class="submit-btn">Save Lawyer</button>
+                <a th:href="@{/lawyers/}" class="cancel-btn">Cancel</a>
             </div>
         </form>
 
-        <a href="/users" class="back-link">Back to Users List</a>
+        <a href="/lawyers" class="back-link">Back to Lawyers List</a>
     </div>
 </body>
 </html>

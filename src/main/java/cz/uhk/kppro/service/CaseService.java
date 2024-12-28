@@ -10,5 +10,5 @@ public interface CaseService {
     List<Case> getAllCases();
     Case getCaseById(long id);
     void deleteCaseById(long id);
-    void saveCase(Case Case);
+    Case saveCase(Case Case);
 }

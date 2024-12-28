@@ -2,48 +2,67 @@ package cz.uhk.kppro.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "lawyers")
 public class Lawyer {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @NotEmpty(message = "License cannot be empty")
-    @Size(min = 5, max = 50, message = "License must be between 5 and 50 characters")
-    private String license;
+    @NotEmpty(message = "Name is required")
+    private String name;
 
-    @OneToMany(mappedBy = "lawyer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Case> cases = new ArrayList<>();
+    private String phone;
+    private String specialization;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
+
+    // Default constructor
+    public Lawyer() {
+    }
 
     // Getters and Setters
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getLicense() {
-        return license;
+    public String getName() {
+        return name;
     }
 
-    public void setLicense(String license) {
-        this.license = license;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<Case> getCases() {
-        return cases;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCases(List<Case> cases) {
-        this.cases = cases;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

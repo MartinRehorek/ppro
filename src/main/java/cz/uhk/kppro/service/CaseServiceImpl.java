@@ -37,7 +37,8 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public void saveCase(Case Case) {
+    public Case saveCase(Case Case) {
         caseRepository.save(Case);
+        return Case;
     }
 }

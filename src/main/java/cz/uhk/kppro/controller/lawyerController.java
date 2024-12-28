@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/lawyers")
 public class lawyerController {
 
-    private LawyerService lawyerService;
+    private final LawyerService lawyerService;
 
     @Autowired
     public lawyerController(LawyerService lawyerService) {
@@ -22,10 +22,44 @@ public class lawyerController {
 
     @GetMapping({"/", ""})
     public String listAllLawyers(Model model) {
-//        Lawyer lawyer = new Lawyer("modra", 4,  "2333");
-//        lawyers.add(lawyer);
         model.addAttribute("lawyers", lawyerService.getAllLawyers());
         return "lawyer_list";
+    }
+
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("lawyer", new Lawyer());
+        model.addAttribute("edit", false);
+        return "lawyer_edit";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        Lawyer lawyer = lawyerService.getLawyerById(id);
+        if (lawyer != null) {
+            model.addAttribute("lawyer", lawyer);
+            model.addAttribute("edit", true);
+            return "lawyer_edit";
+        }
+        return "redirect:/lawyers/";
+    }
+
+    @PostMapping("/save")
+    public String save(@Valid @ModelAttribute("lawyer") Lawyer lawyer, 
+                      BindingResult bindingResult, 
+                      Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("edit", lawyer.getId() != null);
+            return "lawyer_edit";
+        }
+        lawyerService.saveLawyer(lawyer);
+        return "redirect:/lawyers/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        lawyerService.deleteLawyerById(id);
+        return "redirect:/lawyers/";
     }
 
     @GetMapping("/detail/{id}")
@@ -37,37 +71,4 @@ public class lawyerController {
         }
         return "redirect:/lawyers/";
     }
-
-    @GetMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable long id){
-        Lawyer lawyer = lawyerService.getLawyerById(id);
-        if (lawyer != null) {
-            model.addAttribute("lawyer", lawyer);
-            model.addAttribute("edit", true);
-            return "lawyer_edit";
-        }
-        return "redirect:/lawyers/";
-    }
-
-    @GetMapping("/create")
-    public String create(Model model){
-        model.addAttribute("lawyer", new Lawyer());
-        model.addAttribute("edit", false);
-        return "lawyer_edit";
-    }
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable long id){
-        lawyerService.deleteLawyerById(id);
-        return "redirect:/lawyers/";
-    }
-    @PostMapping("/save")
-    public String save(@Valid Lawyer lawyer, BindingResult bindingResult, Model model){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("edit", lawyer.getId() != 0);
-            return "lawyer_edit";
-        }
-        lawyerService.saveLawyer(lawyer);
-        return "redirect:/lawyers/";
-    }
-
 }

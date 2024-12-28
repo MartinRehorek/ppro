@@ -11,5 +11,4 @@ public interface LawyerService {
     Lawyer getLawyerById(long id);
     void deleteLawyerById(long id);
     void saveLawyer(Lawyer lawyer);
-    
 }

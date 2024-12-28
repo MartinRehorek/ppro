@@ -1,21 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Detail of Car</title>
+    <title>User Detail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            font-weight: 500;
+            color: #34495e;
+            margin-right: 10px;
+        }
+
+        .value {
+            color: #2c3e50;
+        }
+
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .edit-btn {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .back-btn {
+            background-color: #95a5a6;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-
-<h1> Detail of car</h1>
-<a th:href="@{'/cars/delete/' + ${id}}"> DELETE CAR </a>
-<a th:href="@{'/cars/edit/' + ${id}}"> EDIT CAR </a>
-
-<br>
-<br>
-
-<b> License plate: </b> : <span th:text="${car.licensePlate}"></span>
-<br>
-<b> Color: </b> : <span th:text="${car.color}"></span>
-
+    <div class="container">
+        <h1>User Detail</h1>
+        <div class="detail-section">
+            <p><span class="label">ID:</span> <span class="value" th:text="${user.id}">1</span></p>
+            <p><span class="label">Email:</span> <span class="value" th:text="${user.email}">Email</span></p>
+        </div>
+        <div class="actions">
+            <a href="/users" class="btn back-btn">Back to List</a>
+            <a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn edit-btn">Edit</a>
+            <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn delete-btn">Delete</a>
+        </div>
+    </div>
 </body>
 </html>
