@@ -25,14 +25,38 @@ public class Case {
     @Column(length = 1000)
     private String description;
 
-    @OneToOne
+    @ManyToOne
     private User defendant;
 
-    @OneToOne
+    @ManyToOne
     private User plaintiff;
 
     @OneToMany(mappedBy = "relatedCase")
     private List<CaseDocument> documents = new ArrayList<>();
+
+    public User getDefendant() {
+        return defendant;
+    }
+
+    public void setDefendant(User defendant) {
+        this.defendant = defendant;
+    }
+
+    public User getPlaintiff() {
+        return plaintiff;
+    }
+
+    public void setPlaintiff(User plaintiff) {
+        this.plaintiff = plaintiff;
+    }
+
+    public List<CaseDocument> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<CaseDocument> documents) {
+        this.documents = documents;
+    }
 
     // Getters and Setters
     public long getId() {

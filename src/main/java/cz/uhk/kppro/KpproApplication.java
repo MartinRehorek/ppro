@@ -17,12 +17,9 @@ public class KpproApplication {
 
 	private UserService userService;
 
-	private PasswordEncoder passwordEncoder;
-
 	@Autowired
-	public KpproApplication(UserService userService, PasswordEncoder passwordEncoder){
+	public KpproApplication(UserService userService){
 		this.userService =userService;
-		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Bean
