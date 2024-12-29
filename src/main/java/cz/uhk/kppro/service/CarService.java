@@ -3,7 +3,6 @@ package cz.uhk.kppro.service;
 import cz.uhk.kppro.model.Car;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

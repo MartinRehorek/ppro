@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lawyer Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #f5f6fa;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .page-title {
+      color: #2c3e50;
+      font-size: 2em;
+    }
+
+    .create-btn {
+      background: #2a5298;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 5px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .create-btn:hover {
+      background: #1e3c72;
+    }
+
+    .lawyers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .lawyer-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .lawyer-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .lawyer-title {
+      color: #2c3e50;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .lawyer-info {
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    .lawyer-meta {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #666;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .back-to-dashboard {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #2a5298;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+
+    .back-to-dashboard:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <a href="/" class="back-to-dashboard">
+    <i class="fas fa-arrow-left"></i>
+    Back to Dashboard
+  </a>
+
+  <div class="header">
+    <h1 class="page-title">Lawyer Management</h1>
+    <a href="/lawyers/create" class="create-btn">
+      <i class="fas fa-plus"></i>
+      Add New Lawyer
+    </a>
+  </div>
+
+  <!-- Lawyer list -->
+  <div class="lawyers-grid" th:if="${!lawyers.empty}">
+    <div class="lawyer-card" th:each="lawyer : ${lawyers}">
+      <!-- Lawyer name -->
+      <a th:href="@{'/lawyers/detail/' + ${lawyer.id}}" class="lawyer-title" th:text="${lawyer.name}">Lawyer Name</a>
+
+      <!-- Lawyer info -->
+      <div class="lawyer-info">
+        <!-- Lawyer License -->
+        <div class="lawyer-meta">
+          <div class="meta-item">
+            <i class="fas fa-id-badge"></i>
+            <span th:text="${lawyer.license ?: 'No license provided'}">License</span>
+          </div>
+          <!-- Lawyer Specialization -->
+          <div class="meta-item">
+            <i class="fas fa-briefcase"></i>
+            <span th:text="${lawyer.specialization ?: 'Specialization not assigned'}">Specialization</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- If no lawyers exist -->
+  <div class="empty-state" th:if="${lawyers.empty}">
+    <i class="fas fa-folder-open" style="font-size: 3em; color: #ddd; margin-bottom: 20px;"></i>
+    <h2>No Lawyers Found</h2>
+    <p>Get started by adding your first lawyer</p>
+  </div>
+</div>
+</body>
+</html>
