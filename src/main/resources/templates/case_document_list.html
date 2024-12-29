@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            color: #2c3e50;
+            font-size: 2em;
+        }
+
+        .create-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2a5298;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .create-btn:hover {
+            background: #1e3c72;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .document-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .document-title {
+            color: #2c3e50;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .document-title:hover {
+            color: #2a5298;
+        }
+
+        .document-info {
+            margin-top: 15px;
+        }
+
+        .document-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .document-text {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="/" class="back-to-dashboard">
+        <i class="fas fa-arrow-left"></i>
+        Back to Dashboard
+    </a>
+    <div class="header">
+        <h1 class="page-title">Document Management</h1>
+        <a href="/caseDocuments/create" class="create-btn">
+            <i class="fas fa-plus"></i>
+            Create New Document
+        </a>
+    </div>
+
+    <div class="documents-grid" th:if="${!caseDocuments.empty}">
+        <div class="document-card" th:each="doc : ${caseDocuments}">
+            <a th:href="@{'/caseDocuments/detail/' + ${doc.id}}" class="document-title" th:text="${doc.title}">Document Title</a>
+            <div class="document-info">
+                <div class="document-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-folder"></i>
+                        <span th:text="${doc.relatedCase.title}">Case Title</span>
+                    </div>
+                </div>
+                <p class="document-text" th:text="${doc.text ?: 'No content available'}">Document text</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="empty-message" th:if="${caseDocuments.empty}">
+        <p>No documents available. Create a new document to get started.</p>
+    </div>
+</div>
+</body>
+</html>

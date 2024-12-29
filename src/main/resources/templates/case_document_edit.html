@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${edit ? 'Edit Case' : 'Create New Case'}">Case Management</title>
+    <title th:text="${edit ? 'Edit Document' : 'Create New Document'}">Document Management</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
@@ -52,7 +52,7 @@
         }
 
         textarea {
-            height: 100px;
+            height: 200px;
             resize: vertical;
         }
 
@@ -62,7 +62,14 @@
             margin-top: 5px;
         }
 
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
         .submit-btn {
+            flex: 1;
             background: #2a5298;
             color: white;
             padding: 12px 24px;
@@ -70,12 +77,26 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .cancel-btn {
+            flex: 1;
+            background: #95a5a6;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
             transition: background-color 0.3s ease;
         }
 
         .submit-btn:hover {
             background: #1e3c72;
+        }
+
+        .cancel-btn:hover {
+            background: #7f8c8d;
         }
 
         .back-link {
@@ -93,63 +114,42 @@
 </head>
 <body>
 <div class="container">
-    <h1 th:text="${edit ? 'Edit Case' : 'Create New Case'}">Case Management</h1>
+    <h1 th:text="${edit ? 'Edit Document' : 'Create New Document'}">Document Management</h1>
 
-    <form method="post" th:action="@{'/cases/save'}" th:object="${case}" enctype="multipart/form-data">
+    <form method="post" th:action="@{'/caseDocuments/save'}" th:object="${caseDocument}">
         <input type="hidden" th:field="*{id}">
 
         <div class="form-group">
-            <label for="lawyer">Assigned Lawyer:</label>
-            <select th:field="*{lawyer}" id="lawyer">
-                <option value="">Select a Lawyer</option>
-                <option th:each="lawyer : ${lawyers}" 
-                        th:value="${lawyer.id}" 
-                        th:text="${lawyer.user.firstName + ' ' + lawyer.user.lastName + ' (' + lawyer.license + ')'}">
-                </option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="defendant">Defendant:</label>
-            <select th:field="*{defendant}" id="defendant">
-                <option value="">Select Defendant</option>
-                <option th:each="user : ${users}" 
-                        th:value="${user.id}" 
-                        th:text="${user.firstName + ' ' + user.lastName}">
-                </option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="plaintiff">Plaintiff:</label>
-            <select th:field="*{plaintiff}" id="plaintiff">
-                <option value="">Select Plaintiff</option>
-                <option th:each="user : ${users}" 
-                        th:value="${user.id}" 
-                        th:text="${user.firstName + ' ' + user.lastName}">
-                </option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="title">Case Title:</label>
-            <input type="text" th:field="*{title}" id="title" placeholder="Enter case title">
+            <label for="title">Document Title:</label>
+            <input type="text" th:field="*{title}" id="title" placeholder="Enter document title">
             <span class="error" th:errors="*{title}"></span>
         </div>
 
+        <div class="form-group">
+            <label for="text">Document Content:</label>
+            <textarea th:field="*{text}" id="text" placeholder="Enter document content"></textarea>
+            <span class="error" th:errors="*{text}"></span>
+        </div>
 
         <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea th:field="*{description}" id="description" placeholder="Enter case description" class="form-control"></textarea>
+            <label for="relatedCase">Related Case:</label>
+            <select th:field="*{relatedCase}" id="relatedCase">
+                <option value="">Select a Case</option>
+                <option th:each="case : ${cases}" 
+                        th:value="${case.id}" 
+                        th:text="${case.title}">
+                </option>
+            </select>
+            <span class="error" th:errors="*{relatedCase}"></span>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="submit-btn">Save Case</button>
-            <a th:href="@{/cases/}" class="cancel-btn">Cancel</a>
+            <button type="submit" class="submit-btn">Save Document</button>
+            <a th:href="@{/caseDocuments/}" class="cancel-btn">Cancel</a>
         </div>
     </form>
 
-    <a href="/cases" class="back-link">Back to Cases List</a>
+    <a href="/caseDocuments" class="back-link">Back to Documents List</a>
 </div>
 </body>
 </html>

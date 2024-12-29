@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Detail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .document-title {
+            color: #2c3e50;
+            font-size: 2em;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .btn-edit {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-back {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .document-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #34495e;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .document-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .content-title {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .content-text {
+            color: #666;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="document-header">
+        <h1 class="document-title" th:text="${caseDocument.title}">Document Title</h1>
+        <div class="action-buttons">
+            <a th:href="@{'/caseDocuments/edit/' + ${caseDocument.id}}" class="btn btn-edit">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+            <a th:href="@{'/caseDocuments/delete/' + ${caseDocument.id}}" class="btn btn-delete"
+               onclick="return confirm('Are you sure you want to delete this document?')">
+                <i class="fas fa-trash"></i> Delete
+            </a>
+            <a href="/caseDocuments" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
+    </div>
+
+    <div class="document-info">
+        <div class="info-item">
+            <div class="info-label">Related Case</div>
+            <div class="info-value">
+                <a th:href="@{'/cases/detail/' + ${caseDocument.relatedCase.id}}" 
+                   th:text="${caseDocument.relatedCase.title}">Case Title</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="document-content">
+        <h2 class="content-title">Document Content</h2>
+        <div class="content-text" th:text="${caseDocument.text ?: 'No content available'}">
+            Document content goes here...
+        </div>
+    </div>
+</div>
+</body>
+</html>
