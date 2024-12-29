@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${edit ? 'Edit User' : 'Create New User'}">User Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            background: #2a5298;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #1e3c72;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #2a5298;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${user.id != null ? 'Edit User' : 'Create New User'}">User Form</h1>
+
+    <form method="post" th:action="@{'/users/save'}" th:object="${user}">
+        <!-- ID (Hidden Field for Existing User) -->
+        <input type="hidden" th:field="*{id}">
+
+        <!-- Username -->
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" th:field="*{username}" id="username" placeholder="Enter username">
+            <span class="error" th:errors="*{username}"></span>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" th:field="*{password}" id="password" placeholder="Enter password">
+            <span class="error" th:errors="*{password}"></span>
+        </div>
+
+        <!-- Role -->
+        <div class="form-group">
+            <label for="role">Role:</label>
+            <input type="text" th:field="*{role}" id="role" placeholder="Enter role">
+            <span class="error" th:errors="*{role}"></span>
+        </div>
+
+        <!-- Telephone Number -->
+        <div class="form-group">
+            <label for="telephoneNumber">Telephone Number:</label>
+            <input type="text" th:field="*{telephoneNumber}" id="telephoneNumber" placeholder="Enter telephone number">
+            <span class="error" th:errors="*{telephoneNumber}"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" th:field="*{email}" id="email" placeholder="Enter email">
+            <span class="error" th:errors="*{email}"></span>
+        </div>
+
+        <!-- First Name -->
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" th:field="*{firstName}" id="firstName" placeholder="Enter first name">
+            <span class="error" th:errors="*{firstName}"></span>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" th:field="*{lastName}" id="lastName" placeholder="Enter last name">
+            <span class="error" th:errors="*{lastName}"></span>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+            <button type="submit" class="btn submit-btn">Save User</button>
+            <a th:href="@{/users}" class="btn cancel-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

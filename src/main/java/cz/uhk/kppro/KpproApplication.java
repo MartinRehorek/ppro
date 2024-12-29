@@ -37,7 +37,7 @@ public class KpproApplication {
 		if (userService.findByUsername(username) == null) {
 			User user = new User();
 			user.setUsername(username);
-			user.setPassword(passwordEncoder.encode(password));
+			user.setPassword(password);
 			user.setRole(role);
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
