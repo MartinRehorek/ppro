@@ -1,10 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Lawyer Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #f5f6fa;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .lawyer-info {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .info-item {
+      margin-bottom: 15px;
+    }
+
+    .info-item strong {
+      color: #34495e;
+      font-weight: 500;
+      margin-right: 10px;
+    }
+
+    .info-item span {
+      color: #2c3e50;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+
+    .btn-edit {
+      background: #3498db;
+      color: white;
+    }
+
+    .btn-delete {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .btn-back {
+      background: #95a5a6;
+      color: white;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+  </style>
 </head>
 <body>
+<div class="container">
+  <!-- Display Lawyer's Full Name -->
+  <h1 th:text="${lawyer.user.firstName + ' ' + lawyer.user.lastName}">Lawyer Name</h1>
 
+  <div class="lawyer-info">
+    <!-- Display Lawyer's Email -->
+    <div class="info-item">
+      <strong>Email:</strong>
+      <span th:text="${lawyer.user.email ?: 'No email available'}">Email</span>
+    </div>
+    <!-- Display Lawyer's Phone -->
+    <div class="info-item">
+      <strong>Phone:</strong>
+      <span th:text="${lawyer.user.telephoneNumber ?: 'No phone available'}">Phone</span>
+    </div>
+    <!-- Display Lawyer's Specialization -->
+    <div class="info-item">
+      <strong>Specialization:</strong>
+      <span th:text="${lawyer.specialization ?: 'No specialization specified'}">Specialization</span>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <!-- Edit Lawyer Button -->
+    <a th:href="@{/lawyers/edit/{id}(id=${lawyer.id})}" class="btn btn-edit">
+      <i class="fas fa-edit"></i> Edit
+    </a>
+    <!-- Delete Lawyer Button -->
+    <a th:href="@{/lawyers/delete/{id}(id=${lawyer.id})}" class="btn btn-delete"
+       onclick="return confirm('Are you sure you want to delete this lawyer?')">
+      <i class="fas fa-trash"></i> Delete
+    </a>
+    <!-- Back to List Button -->
+    <a href="/lawyers" class="btn btn-back">
+      <i class="fas fa-arrow-left"></i> Back to List
+    </a>
+  </div>
+</div>
 </body>
 </html>

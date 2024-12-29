@@ -28,17 +28,19 @@ public class KpproApplication {
 	@Bean
 	public CommandLineRunner demo() {
 		return (args) -> {
-			addUser("admin", "heslo", "ADMIN");
-			addUser("user", "heslo", "USER");
+			addUser("admin", "heslo", "ADMIN", "Martin", "Rehorek");
+			addUser("user", "heslo", "USER", "Peter", "Novak");
 		};
 	}
 
-	private void addUser(String username, String password, String role) {
+	private void addUser(String username, String password, String role, String firstName, String lastName) {
 		if (userService.findByUsername(username) == null) {
 			User user = new User();
 			user.setUsername(username);
 			user.setPassword(passwordEncoder.encode(password));
 			user.setRole(role);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
 			userService.save(user);
 		}
 	}

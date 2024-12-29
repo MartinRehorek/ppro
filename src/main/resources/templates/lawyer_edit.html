@@ -1,10 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title th:text="${edit ? 'Edit Lawyer' : 'Create New Lawyer'}">Lawyer Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #f5f6fa;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #34495e;
+      font-weight: 500;
+    }
+
+    input[type="text"], select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+
+    .submit-btn {
+      background: #2a5298;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background: #1e3c72;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #2a5298;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
+<div class="container">
+  <h1 th:text="${edit ? 'Edit Lawyer' : 'Create New Lawyer'}">Lawyer Management</h1>
 
+  <form method="post" th:action="@{'/lawyers/save'}" th:object="${lawyer}">
+    <input type="hidden" th:field="*{id}">
+
+    <div class="form-group">
+      <label for="license">License:</label>
+      <input type="text" th:field="*{license}" id="license" placeholder="Enter license">
+      <span class="error" th:errors="*{license}"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="specialization">Specialization:</label>
+      <input type="text" th:field="*{specialization}" id="specialization" placeholder="Enter specialization">
+      <span class="error" th:errors="*{specialization}"></span>
+    </div>
+
+    <!-- User Selection Dropdown -->
+    <div class="form-group">
+      <label for="user">Assign User:</label>
+      <select th:field="*{user.id}" id="user">
+        <option value="" disabled="disabled" th:selected="*{user} == null">Select a User</option>
+        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.firstName + ' ' + user.lastName}"></option>
+      </select>
+      <span class="error" th:errors="*{user}"></span>
+    </div>
+
+
+    <div class="form-actions">
+      <button type="submit" class="submit-btn">Save Lawyer</button>
+      <a th:href="@{/lawyers/}" class="cancel-btn">Cancel</a>
+    </div>
+  </form>
+
+  <a href="/lawyers" class="back-link">Back to Lawyers List</a>
+</div>
 </body>
 </html>

@@ -138,7 +138,7 @@
   <div class="lawyers-grid" th:if="${!lawyers.empty}">
     <div class="lawyer-card" th:each="lawyer : ${lawyers}">
       <!-- Lawyer name -->
-      <a th:href="@{'/lawyers/detail/' + ${lawyer.id}}" class="lawyer-title" th:text="${lawyer.name}">Lawyer Name</a>
+      <a th:href="@{'/lawyers/detail/' + ${lawyer.id}}" class="lawyer-title" th:text="${lawyer.user.firstName + ' ' + lawyer.user.lastName}">Lawyer Name</a>
 
       <!-- Lawyer info -->
       <div class="lawyer-info">
