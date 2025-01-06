@@ -113,6 +113,12 @@
                 font-size: 2em;
             }
         }
+
+        .disabled {
+            background: #e0e0e0; /* Grey background */
+            color: #999; /* Grey text */
+            pointer-events: none; /* Disable click events */
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -140,12 +146,13 @@
             <p class="card-description">View and manage lawyer profiles and assignments</p>
         </a>
 
-        <a href="/users" class="dashboard-card">
+        <a href="/users" class="dashboard-card" th:classappend="${user.role != 'ADMIN'} ? 'disabled' : ''">
             <div class="card-icon">
                 <i class="fas fa-users"></i>
             </div>
             <h2 class="card-title">Users</h2>
-            <p class="card-description">Manage system users and their permissions</p>
+            <p class="card-description" th:if="${user.role == 'ADMIN'}">Manage system users and their permissions</p>
+            <p class="card-description" th:if="${user.role == 'USER'}">Only for admins</p>
         </a>
 
         <a href="/caseDocuments" class="dashboard-card">
