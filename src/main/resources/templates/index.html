@@ -119,6 +119,28 @@
             color: #999; /* Grey text */
             pointer-events: none; /* Disable click events */
         }
+
+        .footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+            background-color: #f5f6fa;
+            border-top: 1px solid #ddd;
+        }
+
+        .logout-button {
+            background: #2a5298;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logout-button:hover {
+            background: #1e3c72;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -163,6 +185,10 @@
             <p class="card-description">Access and manage case-related documents</p>
         </a>
     </div>
+
+    <footer class="footer">
+        <a href="/logout" class="logout-button">Logout</a>
+    </footer>
 </div>
 </body>
 </html>
