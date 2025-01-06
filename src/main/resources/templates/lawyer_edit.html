@@ -62,20 +62,34 @@
       margin-top: 5px;
     }
 
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
     .submit-btn {
-      background: #2a5298;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      width: 100%;
-      transition: background-color 0.3s ease;
+        flex: 1;
+        background: #2a5298;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .cancel-btn {
+        background: #e74c3c;  /* Red color for cancel */
     }
 
     .submit-btn:hover {
-      background: #1e3c72;
+        background: #1e3c72;
+    }
+
+    .cancel-btn:hover {
+        background: #c0392b;  /* Darker red on hover */
     }
 
     .back-link {
@@ -123,11 +137,9 @@
 
     <div class="form-actions">
       <button type="submit" class="submit-btn">Save Lawyer</button>
-      <a th:href="@{/lawyers/}" class="cancel-btn">Cancel</a>
+      <button type="button" onclick="window.location.href='/lawyers'" class="cancel-btn submit-btn">Cancel</button>
     </div>
   </form>
-
-  <a href="/lawyers" class="back-link">Back to Lawyers List</a>
 </div>
 </body>
 </html>

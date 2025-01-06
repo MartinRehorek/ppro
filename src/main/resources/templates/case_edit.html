@@ -89,6 +89,36 @@
         .back-link:hover {
             text-decoration: underline;
         }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .submit-btn {
+            flex: 1;
+            background: #2a5298;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cancel-btn {
+            background: #e74c3c;  /* Red color for cancel */
+        }
+
+        .submit-btn:hover {
+            background: #1e3c72;
+        }
+
+        .cancel-btn:hover {
+            background: #c0392b;  /* Darker red on hover */
+        }
     </style>
 </head>
 <body>
@@ -145,11 +175,9 @@
 
         <div class="form-actions">
             <button type="submit" class="submit-btn">Save Case</button>
-            <a th:href="@{/cases/}" class="cancel-btn">Cancel</a>
+            <button type="button" onclick="window.location.href='/cases'" class="cancel-btn submit-btn">Cancel</button>
         </div>
     </form>
-
-    <a href="/cases" class="back-link">Back to Cases List</a>
 </div>
 </body>
 </html>

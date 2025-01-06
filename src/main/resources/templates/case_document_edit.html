@@ -81,14 +81,7 @@
         }
 
         .cancel-btn {
-            flex: 1;
-            background: #95a5a6;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 5px;
-            text-decoration: none;
-            text-align: center;
-            transition: background-color 0.3s ease;
+            background: #e74c3c;
         }
 
         .submit-btn:hover {
@@ -96,7 +89,7 @@
         }
 
         .cancel-btn:hover {
-            background: #7f8c8d;
+            background: #c0392b;
         }
 
         .back-link {
@@ -145,11 +138,9 @@
 
         <div class="form-actions">
             <button type="submit" class="submit-btn">Save Document</button>
-            <a th:href="@{/caseDocuments/}" class="cancel-btn">Cancel</a>
+            <button type="button" onclick="window.location.href='/caseDocuments'" class="submit-btn cancel-btn">Cancel</button>
         </div>
     </form>
-
-    <a href="/caseDocuments" class="back-link">Back to Documents List</a>
 </div>
 </body>
 </html>

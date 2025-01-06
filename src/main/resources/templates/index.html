@@ -130,10 +130,6 @@
             </div>
             <h2 class="card-title">Cases</h2>
             <p class="card-description">Manage your legal cases and track their progress</p>
-            <div class="stats">
-                <span class="stat-item">Active Cases</span>
-                <span class="stat-item" th:text="${activeCases ?: 0}">0</span>
-            </div>
         </a>
 
         <a href="/lawyers" class="dashboard-card">
@@ -142,10 +138,6 @@
             </div>
             <h2 class="card-title">Lawyers</h2>
             <p class="card-description">View and manage lawyer profiles and assignments</p>
-            <div class="stats">
-                <span class="stat-item">Total Lawyers</span>
-                <span class="stat-item" th:text="${totalLawyers ?: 0}">0</span>
-            </div>
         </a>
 
         <a href="/users" class="dashboard-card">
@@ -154,10 +146,6 @@
             </div>
             <h2 class="card-title">Users</h2>
             <p class="card-description">Manage system users and their permissions</p>
-            <div class="stats">
-                <span class="stat-item">Active Users</span>
-                <span class="stat-item" th:text="${activeUsers ?: 0}">0</span>
-            </div>
         </a>
 
         <a href="/caseDocuments" class="dashboard-card">
@@ -166,10 +154,6 @@
             </div>
             <h2 class="card-title">Documents</h2>
             <p class="card-description">Access and manage case-related documents</p>
-            <div class="stats">
-                <span class="stat-item">Total Documents</span>
-                <span class="stat-item" th:text="${totalDocuments ?: 0}">0</span>
-            </div>
         </a>
     </div>
 </div>

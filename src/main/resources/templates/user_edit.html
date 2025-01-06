@@ -57,7 +57,14 @@
             margin-top: 5px;
         }
 
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
         .submit-btn {
+            flex: 1;
             background: #2a5298;
             color: white;
             padding: 12px 24px;
@@ -65,12 +72,19 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            width: 100%;
             transition: background-color 0.3s ease;
+        }
+
+        .cancel-btn {
+            background: #e74c3c;  /* Red color for cancel */
         }
 
         .submit-btn:hover {
             background: #1e3c72;
+        }
+
+        .cancel-btn:hover {
+            background: #c0392b;  /* Darker red on hover */
         }
 
         .back-link {
@@ -145,8 +159,8 @@
 
         <!-- Form Actions -->
         <div class="form-actions">
-            <button type="submit" class="btn submit-btn">Save User</button>
-            <a th:href="@{/users}" class="btn cancel-btn">Cancel</a>
+            <button type="submit" class="submit-btn">Save User</button>
+            <button type="button" onclick="window.location.href='/users'" class="submit-btn cancel-btn">Cancel</button>
         </div>
     </form>
 </div>
