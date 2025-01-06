@@ -2,6 +2,7 @@ package cz.uhk.kppro.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "casedocuments")
@@ -17,6 +18,7 @@ public class CaseDocument {
 
     @ManyToOne
     @JoinColumn(name = "case_id", nullable = false)
+    @NotNull(message = "Pick a case")
     private Case relatedCase;
 
     public long getId() {

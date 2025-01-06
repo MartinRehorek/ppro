@@ -71,6 +71,7 @@ public class lawyerController {
     @PostMapping("/save")
     public String save(@Valid Lawyer lawyer, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
+            model.addAttribute("users", userService.getAllUsers());
             model.addAttribute("edit", lawyer.getId() != 0);
             return "lawyer_edit";
         }

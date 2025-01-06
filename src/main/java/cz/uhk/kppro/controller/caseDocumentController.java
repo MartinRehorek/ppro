@@ -48,6 +48,7 @@ public class caseDocumentController {
         CaseDocument caseDocumentObject = caseDocumentService.getCaseDocumentById(id);
         if (caseDocumentObject != null) {
             model.addAttribute("caseDocument", caseDocumentObject);
+            model.addAttribute("cases", caseService.getAllCases());
             model.addAttribute("edit", true);
             return "case_document_edit";
         }
@@ -70,6 +71,7 @@ public class caseDocumentController {
     public String save(@Valid CaseDocument caseDocumentObject, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("edit", caseDocumentObject.getId() != 0);
+            model.addAttribute("cases", caseService.getAllCases());
             return "case_document_edit";
         }
         caseDocumentService.saveCaseDocument(caseDocumentObject);

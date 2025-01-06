@@ -25,7 +25,7 @@ public class KpproApplication {
 	@Bean
 	public CommandLineRunner demo() {
 		return (args) -> {
-			addUser("admin", "heslo", "ADMIN", "Martin", "Rehorek");
+			addUser("admin", "heslo", "ADMIN", "Martin", "Pravnik");
 			addUser("user", "heslo", "USER", "Peter", "Novak");
 		};
 	}

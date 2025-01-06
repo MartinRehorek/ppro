@@ -125,7 +125,11 @@
         <!-- Role -->
         <div class="form-group">
             <label for="role">Role:</label>
-            <input type="text" th:field="*{role}" id="role" placeholder="Enter role">
+            <select th:field="*{role}" id="role">
+                <option value="" disabled="disabled" th:selected="*{role} == null">Select a Role</option>
+                <option value="ADMIN" th:selected="*{role} == 'ADMIN'">ADMIN</option>
+                <option value="USER" th:selected="*{role} == 'USER'">USER</option>
+            </select>
             <span class="error" th:errors="*{role}"></span>
         </div>
 

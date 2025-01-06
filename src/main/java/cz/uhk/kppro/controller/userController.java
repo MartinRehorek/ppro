@@ -68,6 +68,11 @@ public class userController {
     @PostMapping("/save")
     public String save(@Valid User user, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
+            if (user.getId() == null)
+            {
+                model.addAttribute("edit", true);
+                return "user_edit";
+            }
             model.addAttribute("edit", user.getId() != 0);
             return "user_edit";
         }

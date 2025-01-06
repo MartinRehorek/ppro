@@ -12,7 +12,7 @@ public class Lawyer {
     private long id;
 
     @NotEmpty(message = "License cannot be empty")
-    @Size(min = 5, max = 50, message = "License must be between 5 and 50 characters a")
+    @Size(min = 5, max = 50, message = "License must be between 5 and 50 characters")
     private String license;
 
     private String specialization;

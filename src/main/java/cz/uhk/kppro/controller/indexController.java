@@ -13,11 +13,11 @@ public class indexController {
         return "index";
     }
 
-    @GetMapping("/admin")
-    @ResponseBody
-    public String admin() {
-        return "<h1 style=\"color: green\">Admin section</h1>";
-    }
+    // @GetMapping("/admin")
+    // @ResponseBody
+    // public String admin() {
+    //     return "<h1 style=\"color: green\">Admin section</h1>";
+    // }
     @GetMapping("/403")
     @ResponseBody
     public String forbidden() {

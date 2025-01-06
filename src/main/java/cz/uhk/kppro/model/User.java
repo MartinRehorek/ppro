@@ -1,6 +1,8 @@
 package cz.uhk.kppro.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -8,11 +10,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, nullable = false)
+    @NotEmpty
+    @Size(min = 3, max = 50)
     private String username;
+    @NotEmpty(message = "Enter password")
     private String password;
     private String role;
     private String telephoneNumber;
     private String email;
+    @NotEmpty(message = "Enter first name")
     private String firstName;
     private String lastName;
 
