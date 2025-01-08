@@ -31,7 +31,7 @@ public class Case {
     @ManyToOne
     private User plaintiff;
 
-    @OneToMany(mappedBy = "relatedCase")
+    @OneToMany(mappedBy = "relatedCase", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CaseDocument> documents = new ArrayList<>();
 
     public User getDefendant() {

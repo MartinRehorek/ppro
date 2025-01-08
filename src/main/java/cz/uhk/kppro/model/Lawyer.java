@@ -16,7 +16,7 @@ public class Lawyer {
     private String license;
 
     private String specialization;
-
+    
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;

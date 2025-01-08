@@ -23,7 +23,7 @@ public class LawyerServiceImpl implements LawyerService {
     @Override
     public Lawyer getLawyerById(long id) { return lawyerRepository.findById(id).orElse(null); }
     @Override
-    public void deleteLawyerById(long id) { lawyerRepository.deleteById(id); }
+    public void deleteLawyerById(long id) {lawyerRepository.deleteById(id); }
     @Override
     public void saveLawyer(Lawyer lawyer) { lawyerRepository.save(lawyer); }
 

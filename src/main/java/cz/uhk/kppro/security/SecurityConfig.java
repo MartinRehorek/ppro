@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
+                
 //                .formLogin((form) -> form
 //                        .loginPage("/login") // Custom login page
 //                        .loginProcessingUrl("/login") // Form submission URL
@@ -48,7 +49,7 @@ public class SecurityConfig {
 //                        .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/logout-success")
                         .permitAll()
                 )
                 .exceptionHandling((exceptions) -> exceptions
